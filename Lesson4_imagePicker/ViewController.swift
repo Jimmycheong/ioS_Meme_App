@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     // MARK: Structs
     
@@ -31,13 +31,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var toolBar: UIToolbar!
     
-    // MARK: Delegates
-    
-    let customField = customTextFieldDelegate()
-    
+    //MARK: Variables
+    var activeField: UITextField?
     
     // MARK: LifeCycle methods
     
@@ -72,8 +71,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             NSParagraphStyleAttributeName: style,
             NSStrokeWidthAttributeName: 0.0]
         
-        topTextField.delegate = customField
-        bottomTextField.delegate = customField
+        topTextField.delegate = self
+        bottomTextField.delegate = self
         navigationBar.delegate = self as? UINavigationBarDelegate
         toolBar.delegate = self as? UIToolbarDelegate
         
@@ -85,24 +84,66 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
 
+    // MARK: TextFieldDelegate methods
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        self.activeField = textField
+        
+        if textField.text == "TOP" || textField.text == "BOTTOM"  {
+            textField.text = ""
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField){
+        self.activeField = nil
+    }
+    
     
     // MARK: Keyboard toggle
     
     func keyboardWillShow(_ notification:Notification) {
         
-        view.frame.origin.y -= getKeyboardHeight(notification)
+        self.scrollView.isScrollEnabled = true
+        var info = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+        
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        
+        var aRect : CGRect = self.view.frame
+        aRect.size.height -= keyboardSize!.height
+        if let activeField = self.activeField {
+            if (!aRect.contains(activeField.frame.origin)){
+                self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+            }
+        }
+        
     }
     
     func keyboardWillHide(_ notification:Notification) {
+        var info = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        self.view.endEditing(true)
+        self.scrollView.isScrollEnabled = false
         
-        view.frame.origin.y += getKeyboardHeight(notification)
     }
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
         
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
-        print("Keyboard height: " + String(describing: keyboardSize.cgRectValue.height))
+
         return keyboardSize.cgRectValue.height
     }
     
@@ -184,8 +225,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return memedImage
         
     }
-    
-
     
     func save() {
         // Create the meme
