@@ -21,6 +21,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yum-0D-GNW">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="Fs2-GC-aFf">
+                                        <barButtonItem key="leftBarButtonItem" title="Share" id="f2t-Bg-plN" userLabel="Share Button">
+                                            <connections>
+                                                <action selector="shareAction:" destination="BYZ-38-t0r" id="TOF-2y-nun"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Kg-Yu-toC">
+                                <rect key="frame" x="0.0" y="72" width="375" height="551"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="551" id="X5c-gq-yV7"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uKd-MZ-i0k">
+                                <rect key="frame" x="0.0" y="72" width="375" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.98107319589999997" green="1" blue="0.99047248720000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jwn-8e-t6M">
+                                <rect key="frame" x="0.0" y="593" width="375" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gHA-vh-pWy">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
@@ -38,27 +71,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Kg-Yu-toC">
-                                <rect key="frame" x="0.0" y="44" width="375" height="579"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="579" id="M27-YY-O48"/>
-                                </constraints>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jwn-8e-t6M">
-                                <rect key="frame" x="0.0" y="593" width="375" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uKd-MZ-i0k">
-                                <rect key="frame" x="0.0" y="44" width="375" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="textColor" red="0.98107319589999997" green="1" blue="0.99047248720000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -67,11 +79,14 @@
                             <constraint firstItem="uKd-MZ-i0k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="A1L-S0-KyT"/>
                             <constraint firstItem="Jwn-8e-t6M" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Evh-Jh-tgq"/>
                             <constraint firstItem="0Kg-Yu-toC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Hl3-49-HFu"/>
+                            <constraint firstItem="yum-0D-GNW" firstAttribute="top" secondItem="0Kg-Yu-toC" secondAttribute="top" constant="-44" id="MPq-lG-sLm"/>
+                            <constraint firstItem="uKd-MZ-i0k" firstAttribute="top" secondItem="0Kg-Yu-toC" secondAttribute="top" id="N9X-1Y-MTP"/>
+                            <constraint firstAttribute="trailing" secondItem="yum-0D-GNW" secondAttribute="trailing" id="WhR-6r-nLc"/>
                             <constraint firstAttribute="trailing" secondItem="Jwn-8e-t6M" secondAttribute="trailing" id="Wlh-XS-liY"/>
                             <constraint firstAttribute="trailing" secondItem="0Kg-Yu-toC" secondAttribute="trailing" id="cnZ-Gh-qpG"/>
+                            <constraint firstItem="yum-0D-GNW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eRp-oE-nax"/>
                             <constraint firstItem="Jwn-8e-t6M" firstAttribute="bottom" secondItem="gHA-vh-pWy" secondAttribute="top" id="glw-rs-EGP"/>
                             <constraint firstAttribute="trailing" secondItem="gHA-vh-pWy" secondAttribute="trailing" id="grG-yN-74J"/>
-                            <constraint firstItem="uKd-MZ-i0k" firstAttribute="top" secondItem="0Kg-Yu-toC" secondAttribute="top" id="in6-xx-qbz"/>
                             <constraint firstItem="gHA-vh-pWy" firstAttribute="top" secondItem="0Kg-Yu-toC" secondAttribute="bottom" id="kNS-Tg-rqd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="gHA-vh-pWy" secondAttribute="bottom" id="lE8-9J-nYq"/>
                         </constraints>
@@ -80,6 +95,9 @@
                         <outlet property="bottomTextField" destination="Jwn-8e-t6M" id="eoK-D9-Iyc"/>
                         <outlet property="cameraButton" destination="AJW-WZ-WzX" id="x82-aV-1Nb"/>
                         <outlet property="imagePickerView" destination="0Kg-Yu-toC" id="K0f-Bv-0oA"/>
+                        <outlet property="navigationBar" destination="yum-0D-GNW" id="EtP-uS-gCf"/>
+                        <outlet property="shareButton" destination="f2t-Bg-plN" id="bke-by-yCY"/>
+                        <outlet property="toolBar" destination="gHA-vh-pWy" id="3nR-IK-hYa"/>
                         <outlet property="topTextField" destination="uKd-MZ-i0k" id="8H1-gi-lvi"/>
                     </connections>
                 </viewController>

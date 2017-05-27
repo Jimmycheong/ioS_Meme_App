@@ -29,7 +29,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     
-//    @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var toolBar: UIToolbar!
     
     // MARK: Delegates
     
@@ -41,7 +44,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillAppear(_ animated: Bool) {
         
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-//        shareButton.isEnabled = false
         
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
@@ -57,6 +59,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Disable the share button if no image is selected yet.
+        shareButton.isEnabled = false
+        
         let style = NSMutableParagraphStyle()
         style.alignment = NSTextAlignment.center
         
@@ -69,13 +74,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         topTextField.delegate = customField
         bottomTextField.delegate = customField
+        navigationBar.delegate = self as? UINavigationBarDelegate
+        toolBar.delegate = self as? UIToolbarDelegate
         
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
         
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
-        
         
     }
 
@@ -135,7 +141,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             imagePickerView.image = image
+            print("Enabled sharebutton")
+            shareButton.isEnabled = true
+
         }
+        
         
         dismiss(animated: true, completion: nil)
         
@@ -143,12 +153,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     // MARK: Saving & Share Meme methods
     
+    @IBAction func shareAction(_ sender: Any) {
+    
+        let genImage = generateMemedImage()
+        let activityController = UIActivityViewController(activityItems: [genImage], applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
+        
+    }
+    
     func generateMemedImage() -> UIImage {
         
         // Hide the navigation bar and toolbar
         
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        self.navigationController?.setToolbarHidden(true, animated: true)
+        print("Hiding nav and tool bars")
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setToolbarHidden(true, animated: false)
 
         
         // Render view to an image
@@ -158,13 +177,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // Show the navigation bar and toolbar
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.setToolbarHidden(false, animated: true)
+        print("Showing nav and tool bars")
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setToolbarHidden(false, animated: false)
         
         return memedImage
         
     }
     
+
     
     func save() {
         // Create the meme
