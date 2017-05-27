@@ -8,20 +8,40 @@
 
 import UIKit
 
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // MARK: Structs
     
-    // MARK : Outlets
+    struct Meme {
+        
+        let topText: String
+        let bottomText: String
+        let originalImage: UIImage
+        let memedImage: UIImage
+        
+    }
+    
+    // MARK: Outlets
     
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     
+//    @IBOutlet weak var shareButton: UIBarButtonItem!
+    
+    // MARK: Delegates
+    
     let customField = customTextFieldDelegate()
     
+    
+    // MARK: LifeCycle methods
+    
     override func viewWillAppear(_ animated: Bool) {
+        
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+//        shareButton.isEnabled = false
         
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
@@ -33,6 +53,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let style = NSMutableParagraphStyle()
+        style.alignment = NSTextAlignment.center
+        
+        let memeTextAttributes:[String:Any] = [
+            NSStrokeColorAttributeName: UIColor.red,
+            NSForegroundColorAttributeName: UIColor.white,
+            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 30)!,
+            NSParagraphStyleAttributeName: style,
+            NSStrokeWidthAttributeName: 0.0]
+        
+        topTextField.delegate = customField
+        bottomTextField.delegate = customField
+        
+        topTextField.defaultTextAttributes = memeTextAttributes
+        bottomTextField.defaultTextAttributes = memeTextAttributes
+        
+        topTextField.text = "TOP"
+        bottomTextField.text = "BOTTOM"
+        
+        
+    }
+
+    
+    // MARK: Keyboard toggle
     
     func keyboardWillShow(_ notification:Notification) {
         
@@ -65,32 +113,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide , object: nil)
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let style = NSMutableParagraphStyle()
-        style.alignment = NSTextAlignment.center
-        
-        let memeTextAttributes:[String:Any] = [
-            NSStrokeColorAttributeName: UIColor.red,
-            NSForegroundColorAttributeName: UIColor.white,
-            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 30)!,
-            NSParagraphStyleAttributeName: style,
-            NSStrokeWidthAttributeName: 0.0]
-        
-        topTextField.delegate = customField
-        bottomTextField.delegate = customField
-        
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
-        
-        
-    }
-
+    // MARK: Image Picker methods
     
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
     
@@ -117,7 +140,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
         
     }
+
+    // MARK: Saving & Share Meme methods
     
+    func generateMemedImage() -> UIImage {
+        
+        // Hide the navigation bar and toolbar
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setToolbarHidden(true, animated: true)
+
+        
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        // Show the navigation bar and toolbar
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setToolbarHidden(false, animated: true)
+        
+        return memedImage
+        
+    }
+    
+    
+    func save() {
+        // Create the meme
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
+    }
     
 
 }

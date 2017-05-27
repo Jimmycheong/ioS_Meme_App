@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gHA-vh-pWy">
-                                <rect key="frame" x="0.0" y="599" width="375" height="68"/>
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ShH-yC-bdQ"/>
                                     <barButtonItem title="Album" id="plO-08-J0B">
@@ -39,21 +39,21 @@
                                 </items>
                             </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Kg-Yu-toC">
-                                <rect key="frame" x="0.0" y="20" width="375" height="579"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="579"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="579" id="M27-YY-O48"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jwn-8e-t6M">
-                                <rect key="frame" x="0.0" y="569" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="593" width="375" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uKd-MZ-i0k">
-                                <rect key="frame" x="0.0" y="20" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.98107319589999997" green="1" blue="0.99047248720000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -65,7 +65,6 @@
                             <constraint firstAttribute="trailing" secondItem="uKd-MZ-i0k" secondAttribute="trailing" id="1l1-wo-GR7"/>
                             <constraint firstItem="gHA-vh-pWy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5IP-9i-xbV"/>
                             <constraint firstItem="uKd-MZ-i0k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="A1L-S0-KyT"/>
-                            <constraint firstItem="0Kg-Yu-toC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="AAB-P0-qWy"/>
                             <constraint firstItem="Jwn-8e-t6M" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Evh-Jh-tgq"/>
                             <constraint firstItem="0Kg-Yu-toC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Hl3-49-HFu"/>
                             <constraint firstAttribute="trailing" secondItem="Jwn-8e-t6M" secondAttribute="trailing" id="Wlh-XS-liY"/>
